@@ -17,7 +17,7 @@ def call(body) {
     def approveSubmitter = config.approveSubmitter ?: ''
     try {
         timeout(time: timeoutTime, unit: 'HOURS') {
-            input id: 'Proceed', message: "\n${proceedMessage}", submitter: ${approveSubmitter}
+            input id: 'Proceed', message: "\n${processMessage}", submitter: "${approveSubmitter}"
         }
     } catch (err) {
         throw err

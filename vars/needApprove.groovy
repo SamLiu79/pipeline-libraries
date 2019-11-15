@@ -1,5 +1,8 @@
 #!groovy
 
+// @timeoutTime: how many hours to wait approve, default is 24hours
+// @processMessage: message to show.
+// @approveSubmitter: user or group list can approval
 def call(body) {
     // evaluate the body block, and collect configuration into the object
     def config = [:]
@@ -9,12 +12,12 @@ def call(body) {
 
 
     def timeoutTime = config.timeoutTime ?: 24
-    def version = config.version ?: "current"
-    def proceedMessage = """Would you like to promote ${version} version to the next environment?
+    def processMessage = config.processMessage ?: """Would you like to approve this?
 """
+    def approveSubmitter = config.approveSubmitter ?: ''
     try {
         timeout(time: timeoutTime, unit: 'HOURS') {
-            input id: 'Proceed', message: "\n${proceedMessage}"
+            input id: 'Proceed', message: "\n${proceedMessage}", submitter: ${approveSubmitter}
         }
     } catch (err) {
         throw err

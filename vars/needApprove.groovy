@@ -11,7 +11,7 @@ def call(body) {
     body()
 
 
-    def timeoutTime = config.timeoutTime ?: 24
+    def timeoutTime = config.timeoutTime ?: 24*30
     def processMessage = config.processMessage ?: """Would you like to approve this?
 """
     def approveSubmitter = config.approveSubmitter ?: ''
